@@ -12,7 +12,7 @@ namespace WebAPiOef.Controllers
     [ApiController]
     public class GetalController : ControllerBase
     {
-        string text = @"getal.txt";
+        string textlocation = @"getal.txt";
             
         public GetalController()
         {
@@ -23,9 +23,9 @@ namespace WebAPiOef.Controllers
         [HttpGet]
         public ActionResult<int> GetGetal()
         {
-            if (IO.File.Exists(text))
+            if (IO.File.Exists(textlocation))
             {
-                int line = int.Parse(IO.File.ReadAllText(text));
+                var line = IO.File.ReadAllText(textlocation);
                 return Ok(line);
             }
             return NotFound();
@@ -37,7 +37,7 @@ namespace WebAPiOef.Controllers
             List<string> outputstring = new List<string>();
             string textnumber = Convert.ToString(number);
             outputstring.Add(textnumber);
-            IO.File.WriteAllLines(text, outputstring);
+            IO.File.WriteAllLines(textlocation, outputstring);
         }
         [HttpPost("RandomNumber")]
         public void AddRandomToTxt()
@@ -47,7 +47,7 @@ namespace WebAPiOef.Controllers
             int randomNumber = randomGenerator.Next(100,200);
             string randomNumberTxt = Convert.ToString(randomNumber);
             outputstring.Add(randomNumberTxt);
-            IO.File.WriteAllLines(text, outputstring);
+            IO.File.WriteAllLines(textlocation, outputstring);
         }
 
 
